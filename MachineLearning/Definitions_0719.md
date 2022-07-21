@@ -22,7 +22,7 @@ KL divergence definition: how one probability distribution P is different from a
 
     
 
-**Cross Entropy**：$H(p,q) = -\sum\limits_{x \in \Chi} p(x) \log q(x)$ ，一般是用来量化两个概率分布之间差异的损失函数（多用于分类问题）。
+**Cross Entropy**：$H(p,q) = -\sum\limits_{x \in \chi} p(x) \log q(x)$ ，一般是用来量化两个概率分布之间差异的损失函数（多用于分类问题）。
 
 计算出Cross Entropy Loss之后，用Gradient Descent来进行参数的更新。
 
@@ -124,8 +124,8 @@ MSE 的缺点:
 
 <br/>
 
-**2. 熵**：对于一个随机变量X而言，它的所有可能取值的信息量的期望（$E[I(x)]$）就称为熵。$$H(x) = E_p \log \frac{1}{p(x)} = - \sum_{x \in \Chi} p(x) \log p(x)$$ 如果p(x)是连续型随机变量的pdf，则熵定义为：
-$$H(x) = - \int \limits_{x \in \Chi} p(x) \log p(x) dx$$
+**2. 熵**：对于一个随机变量X而言，它的所有可能取值的信息量的期望（$E[I(x)]$）就称为熵。$$H(x) = E_p \log \frac{1}{p(x)} = - \sum_{x \in \chi} p(x) \log p(x)$$ 如果p(x)是连续型随机变量的pdf，则熵定义为：
+$$H(x) = - \int \limits_{x \in \chi} p(x) \log p(x) dx$$
 
 为了保证有效性，这里约定当 $p(x) \rightarrow 0$ 时,有 $p(x)logp(x) \rightarrow 0$，当两种取值的可能性相等时，不确定度最大。当 $p = 0$ 或 $1$时，熵为 $0$，即此时X完全确定为 $0$。
 
@@ -168,15 +168,15 @@ $$
 记为$DKL(p||q)$。它度量*当真实分布为p时，假设分布q的无效性*。
 
 $$
-D_{KL}(p||q) = E_p[\log \frac{p(x)}{q(x)}] = \sum \limits_{x \in \Chi} p(x) \log \frac{p(x)}{q(x)} 
+D_{KL}(p||q) = E_p[\log \frac{p(x)}{q(x)}] = \sum \limits_{x \in \chi} p(x) \log \frac{p(x)}{q(x)} 
 $$
 
 $$
-= \sum \limits_{x \in \Chi} p(x) \log p(x) - \sum \limits_{x \in \Chi} p(x) \log q(x) 
+= \sum \limits_{x \in \chi} p(x) \log p(x) - \sum \limits_{x \in \chi} p(x) \log q(x) 
 $$
 
 $$
-= -H(p) - \sum \limits_{x \in \Chi} p(x) \log q(x) 
+= -H(p) - \sum \limits_{x \in \chi} p(x) \log q(x) 
 $$
 
 $$
@@ -188,6 +188,7 @@ $H_p(q)$ 表示在p分布下，使用 $q$ 进行编码需要的bit数。当 $p=q
 <br/>
 
 **5. 交叉熵**: 假设有两个分布 $p, q$，则它们在给定样本集上的交叉熵定义如下：
+
 $$
 CEH(p,q) = E_p[-\log q] = - \sum \limits_{x \in \Chi} p(x) \log q(x) = H(p) + D_{KL}(p || q)
 $$
