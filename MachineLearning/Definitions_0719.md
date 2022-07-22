@@ -1,4 +1,4 @@
-# Some definitions about machine learning in 19-21 July
+# Some definitions about machine learning in 19-22 July
 
 
 - ## 机器学习中的维度灾难 (The Curse of Dimensionality in classification)
@@ -224,6 +224,9 @@ $$
 
 > 补充 ref: [熵与信息增益](https://blog.csdn.net/xg123321123/article/details/52864830)
 
+> 补充 [softmax交叉熵损失函数求导](https://blog.csdn.net/qian99/article/details/78046329) (求导的链式法则)
+
+
 **6. 互信息**: 
 两个随机变量 $X，Y$ 的互信息定义为 $X，Y$ 的联合分布和各自独立分布乘积的相对熵，用 $I(X,Y)$ 表示
 
@@ -294,3 +297,162 @@ Ans: Principal Component Analysis，是一种常见的数据分析方式，常�
 什么情况下(不)需要归一化？
 - 需要： 基于参数的模型或基于距离的模型，都是要进行特征的归一化。
 - 不需要：基于树的方法是不需要进行特征的归一化，例如随机森林，bagging 和 boosting等。
+
+
+
+---
+
+- ## Transfer learning & Transformer (machine learning model)
+
+> [Transfer learning Wikipedia](https://en.wikipedia.org/wiki/Transfer_learning)    
+> [Transformer Wikipedia](https://en.wikipedia.org/wiki/Transformer_(machine_learning_model))
+
+
+1. Transfer learning (TL) is a research problem in machine learning (ML) that focuses on storing knowledge gained while solving one problem and applying it to a different but related problem.
+
+
+Transfer Learning的初衷是节省人工标注样本的时间，让模型可以通过已有的标记数据（source domain data）向未标记数据（target domain data）迁移。从而训练出适用于target domain的模型。
+
+
+2. A transformer is a deep learning model that adopts the mechanism of self-attention, differentially weighting the significance of each part of the input data. It is used primarily in the fields of natural language processing (NLP) and computer vision (CV).
+
+Transformer VS RNN   
+Like recurrent neural networks (RNNs), transformers are designed to process sequential input data, such as natural language, with applications towards tasks such as translation and text summarization. However, unlike RNNs, transformers process the entire input all at once. The attention mechanism provides context for any position in the input sequence.
+
+
+> ref: [十分钟理解transformer](https://zhuanlan.zhihu.com/p/82312421)
+
+当输入一个文本的时候，该文本数据会先经过一个叫Encoders的模块，对该文本进行编码，然后将编码后的数据再传入一个叫Decoders的模块进行解码，解码后就得到了翻译后的文本，对应的我们称Encoders为编码器，Decoders为解码器。
+
+编码模块里边，有很多小的编码器，一般情况下，Encoders里边有6个小编码器，同样的，Decoders里边有6个小解码器。
+
+在编码部分，每一个的小编码器的输入是前一个小编码器的输出，而每一个小解码器的输入不光是它的前一个解码器的输出，还包括了整个编码部分的输出。
+
+encoder里边的结构是一个自注意力机制 (Self-attention) 加上一个前馈神经网络
+
+
+
+---
+
+- ## Data augmentation
+
+> ref: [Wikipedia](https://en.wikipedia.org/wiki/Data_augmentation)
+
+Data augmentation in data analysis are techniques used to increase the amount of data by adding slightly modified copies of already existing data or newly created synthetic data from existing data. It acts as a regularizer and helps reduce overfitting when training a machine learning model.
+
+
+> An essay about the data agumentation: [A survey on Image Data Augmentation for Deep Learning](https://journalofbigdata.springeropen.com/articles/10.1186/s40537-019-0197-0)
+
+**Abstract**  
+Deep convolutional neural networks have performed remarkably well on many Computer Vision tasks. However, these networks are heavily reliant on big data to avoid overfitting. Overfitting refers to the phenomenon when a network learns a function with very high variance such as to perfectly model the training data. Unfortunately, many application domains do not have access to big data, such as medical image analysis. This survey focuses on Data Augmentation, a data-space solution to the problem of limited data. Data Augmentation encompasses a suite of techniques that enhance the size and quality of training datasets such that better Deep Learning models can be built using them. The image augmentation algorithms discussed in this survey include geometric transformations, color space augmentations, kernel filters, mixing images, random erasing, feature space augmentation, adversarial training, generative adversarial networks, neural style transfer, and meta-learning. The application of augmentation methods based on GANs are heavily covered in this survey. In addition to augmentation techniques, this paper will briefly discuss other characteristics of Data Augmentation such as test-time augmentation, resolution impact, final dataset size, and curriculum learning. This survey will present existing methods for Data Augmentation, promising developments, and meta-level decisions for implementing Data Augmentation. Readers will understand how Data Augmentation can improve the performance of their models and expand limited datasets to take advantage of the capabilities of big data.
+
+
+
+---
+
+- ## Learning rate
+
+> [wikipedia](https://en.wikipedia.org/wiki/Learning_rate)
+
+Learning rate is a tuning parameter (Hyperparameter) in an optimization algorithm that determines the step size at each iteration while moving toward a minimum of a loss function
+
+It metaphorically represents the speed at which a machine learning model "learns"
+
+学习率越低，损失函数的变化速度就越慢，容易过拟合。虽然使用低学习率可以确保我们不会错过任何局部极小值，但也意味着我们将花费更长的时间来进行收敛，特别是在被困在局部最优点的时候。而学习率过高容易发生梯度爆炸，loss振动幅度较大，模型难以收敛。
+
+<br/>
+
+**如何设置初始学习率?**
+
+首先设置一个十分小的学习率，在每个epoch之后增大学习率，并记录好每个epoch的loss或者acc，迭代的epoch越多，那被检验的学习率就越多，最后将不同学习率对应的loss或acc进行对比。
+
+> ref: [Cyclical Learning Rates for Training Neural Networks](https://arxiv.org/abs/1506.01186)
+
+---
+
+- ## Linear model
+
+> [Wiki definition](https://en.wikipedia.org/wiki/Linear_model)  
+> ref mathwork: [Linear Model -- Mathworks](https://www.mathworks.com/discovery/linear-model.html)
+
+Definition: Describe mathematical relationships and make predictions from experimental data. Describe a continuous response variable as a function of one or more predictor variables. They can help you understand and predict the behavior of complex systems or analyze experimental, financial, and biological data.
+
+The general equation for a linear model is:
+$$
+y = \beta_0 + \sum \beta_i X_i + \epsilon_i
+$$
+
+where  β  represents linear parameter estimates to be computed and  ϵ  represents the error terms.
+
+There are several types of linear regression:
+- **Simple linear regression**: models using only one predictor
+- **Multiple linear regression**: models using multiple predictors
+- **Multivariate linear regression**: models for multiple response variables
+
+
+
+
+- ### 线性模型
+线性模型和非线性模型的区别并不在于能不能去拟合曲线。
+
+在统计意义上，如果一个回归等式是线性的，那么它的相对于参数就必须也是线性的。如果相对于参数是线性，那么即使性对于样本变量的特征是二次方或者多次方，这个回归模型也是线性的：$y = \omega_0 + \omega_1 x_1 + \omega_2 x_2^2$
+
+
+甚至可以使用 log 或者指数去形式化特征：$y = \omega_0 + \omega_1 exp(-x_1) + \omega_2 exp(-x_2^2)$
+
+- ### 非线性模型
+参数是不是非线性的，非线性有很多种形象，因此可以较好的你和曲折的函数曲线，比如：$y = \theta_1 \times x^{\theta_2}$, $y = \theta_1 + (\theta_2 - \theta_3) \times exp(-\theta_4 x)$，这些非线性模型的特征因子对应的参数不止一个。
+
+**Note:**
+1. 线性模型可以是用曲线拟合样本，但是分类的决策边界一定是直线的，例如 $logistic$ 模型；
+2. 区分是否为线性模型，主要是看一个乘法式子中自变量 $x$ 前的系数 $\omega$ ，应该是说 $x$ 只被一个 $\omega$ 影响，那么此模型为线性模型。或者判断决策边界是否是线性的；
+3. 最简单判别一个模型是否为线性的，只需要判别*决策边界是否是直线*，也就是是否能用一条直线来划分
+
+
+<br/>
+
+- ### Logistic regression
+> 三节相关的网课（台大李宏毅）
+>> [Backpropagation](https://youtu.be/ibJpTrp5mcE)   
+>> [Logistic Regression](https://youtu.be/hSXFuypLukA)  
+>> [Classification](https://youtu.be/fZAZUYEeIMg)  
+
+> Ref: [Wiki definition](https://en.wikipedia.org/wiki/Logistic_regression)   
+> Ref: [IBM ref](https://www.ibm.com/topics/logistic-regression)
+
+This type of statistical model (also known as logit model) is often used for classification and predictive analytics.
+Logistic regression estimates the probability of an event occurring
+
+逻辑回归（Logistic Regression）主要解决二**分类**问题，用来表示某件事情发生的可能性。
+
+<br/>
+
+逻辑回归 vs 线性回归
+
+逻辑回归（Logistic Regression）与线性回归（Linear Regression）都是一种广义线性模型（generalized linear model）。逻辑回归假设因变量 y 服从伯努利分布，而线性回归假设因变量 y 服从高斯分布。 因此与线性回归有很多相同之处，去除 $Sigmoid$ 映射函数的话，逻辑回归算法就是一个线性回归。可以说，逻辑回归是以线性回归为理论支持的，但是逻辑回归通过 $Sigmoid$ 函数引入了非线性因素，因此可以轻松处理 $0/1$ 分类问题。
+
+假设函数（Hypothesis function）
+
+<!-- 后续还有ReLu函数 -->
+$Sigmoid$ 函数，也称为逻辑函数（Logistic function): $g(z) = \frac{1}{1 + e^{-z}}$ (其中的$z = \sum_i w_i \cdot x_i + b$)，它的取值在[0, 1]之间，在远离0的地方函数的值会很快接近0或者1。
+
+<br/>
+
+- 决策边界（Decision Boundary）
+
+也称为决策面，是用于在N维空间，将不同类别样本分开的平面或曲面。
+
+**Note:** 决策边界是假设函数的属性，由参数决定，而不是由数据集的特征决定。决策边界其实就是一个方程
+
+分类
+- 线性决策边界
+- 非线性决策边界
+
+<!-- Todo: 网课看完 -->
+
+
+
+
+---
+
+- ## Decision tree
