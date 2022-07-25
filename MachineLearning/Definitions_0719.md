@@ -258,6 +258,17 @@ $$
 = -\sum_{x,y} p(x,y) \log p(y | x) = H(y | x)
 $$
 
+7. **信息增益**
+
+在决策树ID3算法中，使用信息增益来选择最佳的特征作为决策点。
+
+信息增益表示得知特征X的信息而使得类Y的信息不确定性减少的程度，即用来衡量特征X区分数据集的能力。当新增一个属性X时，信息熵的变化大小即为信息增益。 越大表示X越重要。
+
+$$
+I(Y | X) = H(Y) - H(Y | X)
+$$
+
+
 
 <br/>
 
@@ -448,11 +459,63 @@ $Sigmoid$ 函数，也称为逻辑函数（Logistic function): $g(z) = \frac{1}{
 - 线性决策边界
 - 非线性决策边界
 
-<!-- Todo: 网课看完 -->
-
-
 
 
 ---
 
 - ## Decision tree
+
+
+
+---
+
+- ## Self-Supervised Learning Vs Semi-Supervised Learning
+
+As we work with bigger models, it becomes difficult to label all the data. Additionally, there is just not enough labelled data for a few tasks, such as training translation systems for low-resource languages. 
+
+
+
+- Self-supervised learning (SSL)
+
+This technique obtains a supervisory signal from the data by leveraging the underlying structure. The general method for self-supervised learning is to predict unobserved or hidden part of the input. 
+
+Self-supervised learning 是无监督学习里面的一种，主要是希望能够学习到一种通用的特征表达用于下游任务。 其主要的方式就是通过自己监督自己，比如把一段话里面的几个单词去掉，用他的上下文去预测缺失的单词，或者将图片的一些部分去掉，依赖其周围的信息去预测缺失的 patch。
+
+> ref: [自監督學習 SELF-SUPERVISED LEARNING 介紹](https://jigfopsda.com/zh/posts/2021/self_supervised_learning/)
+
+> ref: [Self-Supervised Learning](https://project.inria.fr/paiss/files/2018/07/zisserman-self-supervised.pdf)
+
+
+- Semi-Supervised Learning
+
+Semi-supervised learning is a combination of supervised and unsupervised learning. It uses a small amount of labelled data with a larger share of unlabelled data. 
+
+> ref: [Self-Supervised Learning Vs Semi-Supervised Learning: How They Differ](https://analyticsindiamag.com/self-supervised-learning-vs-semi-supervised-learning-how-they-differ/)
+
+>ref: [Top 8 Resources To Learn Self-Supervised Learning In 2021](https://analyticsindiamag.com/top-8-resources-to-learn-self-supervised-learning-in-2021/)
+
+
+---
+
+- 怎样更好地理解并记忆泰勒展开式？ 
+> ref: https://www.zhihu.com/question/25627482/answer/313088784
+
+- 如何理解傅里叶变换公式？
+> ref: https://www.zhihu.com/question/19714540/answer/514107420
+
+傅里叶变换认为一个周期函数(信号)包含多个频率分量，任意函数（信号）f(t)可通过多个周期函数（基函数）相加而合成。
+
+物理角度理解傅里叶变换是以一组特殊的函数（三角函数）为正交基，对原函数进行线性变换，物理意义便是原函数在各组基函数的投影。
+
+- 一些有趣的数学推导
+> [陈二喜的回答合集](https://zhuanlan.zhihu.com/p/95179405)
+
+
+---
+
+- ## 人工智能学习的理论教程集合
+> [AI-EDU 微软人工智能教育与学习共建社区](https://microsoft.github.io/ai-edu/index.html)
+
+微软人工智能教育与学习共建社区（Microsoft AI Education Community, 简称AI-Edu）是微软亚洲研究院（Microsoft Research Asia，简称MSRA）人工智能教育团队创立的人工智能开源社区。
+
+本社区由基础教程、实践案例、实践项目三大模块构成，通过系统化的理论教程和丰富多样的实践案例，帮助学习者学习并掌握人工智能的知识，并锻炼在实际项目中的开发能力。

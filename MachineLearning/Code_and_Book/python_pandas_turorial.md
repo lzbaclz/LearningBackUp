@@ -4,4 +4,4 @@
 
 > ref2: [10 Minutes to pandas](https://pandas.pydata.org/pandas-docs/version/0.22.0/10min.html)
 
-> ref3: Book: Python for Data Analysis
+> ref3: Book: Python for Data Analysis (In directory)
