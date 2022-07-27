@@ -519,3 +519,197 @@ Semi-supervised learning is a combination of supervised and unsupervised learnin
 微软人工智能教育与学习共建社区（Microsoft AI Education Community, 简称AI-Edu）是微软亚洲研究院（Microsoft Research Asia，简称MSRA）人工智能教育团队创立的人工智能开源社区。
 
 本社区由基础教程、实践案例、实践项目三大模块构成，通过系统化的理论教程和丰富多样的实践案例，帮助学习者学习并掌握人工智能的知识，并锻炼在实际项目中的开发能力。
+
+
+---
+
+- ## Latent Dirichlet Allocation (LDA) in NLP
+
+> ref: [潜在狄利克雷分布（LDA）初探](https://blog.csdn.net/VariableX/article/details/106385012)
+
+潜在狄利克雷分布（Latent Dirichlet Allocation, LDA），是一种无监督学习算法，用于识别文档集中潜在的主题词信息。在训练时不需要手工标注的训练集，需要的仅仅是文档集以及指定主题的数量 k 即可。对于每一个主题均可找出一些词语来描述它。
+
+LDA是一种典型的词袋模型，即它认为一篇文档是由一组词构成的一个集合，词与词之间没有顺序以及先后的关系。一篇文档可以包含多个主题，文档中每一个词都由其中的一个主题生成。
+
+LDA 模型是概率图模型，特点是以狄利克雷分布为多项式分布的先验分布，学习过程就是给定文本集合，通过后验概率分布的估计，推断模型的所有参数。
+
+可以认为LDA是概率潜在语义分析(PLSA)的扩展，在文本生成过程中，LDA使用狄利克雷分布作为先验分布，而PLSA不使用先验分布(或者说假设先验分布是均匀分布)。LDA的优点是：使用先验概率分布，可以防止学习过程中产生的过拟合 。
+
+
+<br>
+
+**LDA 与 PLSA 异同**
+- 相同点
+    - 两者都假设话题是单词的多项分布，文本是话题的多项分布。
+
+- 不同点：
+    - 在文本生成过程中，LDA使用狄利克雷分布作为先验分布，而PLSA不使用先验分布(或者说假设先验分布是均匀分布。
+    - 使用先验概率分布，可以防止学习过程中产生的过拟合 。
+
+
+
+### Latent Dirichlet Allocation (LDA) brief introduction
+
+> ref: [What is Latent Dirichlet Allocation (LDA) in NLP?](https://www.analyticssteps.com/blogs/what-latent-dirichlet-allocation-lda-nlp)
+
+Use for Topic modelling
+
+establish semantic relationships between words, find documents or books through a text summary, enhance customer service
+
+
+> ref: [LDA文本主题模型的学习笔记](https://blog.csdn.net/qq_38556984/article/details/107571714)
+
+LDA是一个无监督分析，对于自然语言处理，可以用来主题分析、关键词提取、文档聚类，计算语义相似度；对于计算机视觉，可以用来图像聚类；换句话说，只要能引入隐变量（主题就是一个隐变量）的场景，都可以尝试。
+
+提出者在一开始建模的时候，有一个假设是：我们在一个单词一个单词敲打出一个文档过程中，每当我们想预先写出一个单词时，其实我们心已有一个定好的主题，比方说我们想写一个主题为体育的新闻，那么我们在体育这个主题下再去找我们相对应的一个单词，那么我们就可能敲出“足球”这个单词；然后我们再去体育这个主题下，敲出来“比赛”这个单词；以此类推，我们生成了整篇文章。这也是LDA模型work的原因。
+
+LDA模型的输出如上图所两个分布，一个是主题分布，另外一个是单词分布。
+
+在每个主题下，所有单词概率加起来为1；
+在每个文章下，所有主题的概率加起来为1。
+
+以矩阵的观点来看，输入的是一个N * M 的文章矩阵，其中 N 是文章的数量，M 是单词的数量。
+输出的是一个N * K 的主题分布，其中 K 是主题个数，里面每一行代表的是每篇文章的主题分布；
+另外一个输出是 M * K的单词分布，里面的每一列对应着每个主题的单词分布
+
+可以从下面几个方向来理解LDA：
+1. 概率图模型：数据生成过程定义了观测随机变量和隐藏随机变量的联合概率分布。通过使用联合分布来计算在给定观测变量下隐藏变量的条件分布（后验分布）来进行数据分析。 对于LDA来说，观测变量就是文档中的词；隐藏变量就是主题结构。那么推测文档中隐藏的 主题结构的问题其实就是计算在给定文档下隐藏变量的条件分布（后验分布）。
+2. 矩阵分解：单词 * 文档 分解为 单词 * 主题 + 文档 * 主题
+3. 聚类：根据主题进行聚类。
+4. 降维：每一篇文档可看作关于主题的分布。
+
+
+
+There are three hyperparameters in LDA:
+- Document-topic density factor (‘α’)
+- Topic-word density factor (‘β’)
+- The number of topics to be considered (K).
+
+
+Two fundamental assumptions are made by the LDA:
+
+- Documents are made up of a variety of themes, while topics are made up of a variety of tokens (or words)
+
+- The probability distribution is used to produce the words in these areas. The documents are known as the probability density (or distribution) of subjects, and the topics are known as the probability density (or distribution) of words in statistical terms.
+
+
+Applications of LDA:
+
+Traditionally, LDA has been used to detect thematic word clusters or subjects in text data. Aside from that, LDA has been employed as a component in more complex applications. 
+
+- Cascaded LDA for taxonomy construction
+- Recommendation system based on LDA:
+- Gene Expression Classification   
+
+
+### 数学相关的知识
+
+LDA涉及到的数学知识有：共轭先验分布 、贝叶斯框架、二项分布、Gamma函数、Beta分布、多项分布、Dirichlet分布、吉布斯采样
+
+- 共轭先验分布
+
+后验分布 = 似然分布 * 先验分布  
+在贝叶斯概率理论中，如果后验分布和先验分布满足同样的分布律，那么两者称为共轭分布。而先验分布叫作似然函数的共轭先验分布。
+
+$$
+p(\theta | x) = \frac{p(x | \theta)  p(\theta)}{p(x)} \propto p(x | \theta)  p(\theta)
+$$
+
+- 贝叶斯框架
+
+先验分布 + 数据（似然）$=>$ 后验分布
+
+好人与坏人的例子：   
+先验分布：100个好人和100个的坏人，即你认为好人坏人各占一半   
+数据：现在你被2个好人帮助了和1个坏人骗了   
+后验分布：102个好人和101个的坏人     
+
+现在你的后验分布里面认为好人比坏人多了。这个后验分布接着又变 成你的新的先验分布，当你被1个好人（数据）帮助了和3个坏人（数 据）骗了后，你又更新了你的后验分布为：103个好人和104个的坏人。 依次继续更新下去。   
+
+- 二项分布
+
+二项分布是N重伯努利分布，$X−B(n,p)$。概率密度公式为：
+
+$$
+P(K = k) = \tbinom{n}{k} p^k (1-p)^{n-k}
+$$
+
+- 多项分布
+
+是二项分布扩展到多维的情况. 多项分布是指单次试验中的随机变量的取值不再是0 − 1 0-10−1的，而是有多种离散值可能（ 1 , 2 , 3... , k ） （1,2,3...,k）（1,2,3...,k）.概率密度函数为：
+$$
+p([x_1, x_2, x_3, ..., x_k], n, [p_1, p_2, p_3, ..., p_k]) = \frac{n!}{x_1! x_2! x_3! ... x_k!}p_1^{x_1}p_2^{x_2}...p_k^{x_k}
+$$
+
+- Gamma函数与Beta分布
+
+Gamma函数可以看成是阶乘在实数集上的延拓，欧拉应用各种参数替换数学技巧与极 限思想，成功推导出Gamma函数：
+
+$$
+\Gamma (x) = \int_0^\infty t^{x-1}e^{-t} dt
+$$
+
+对于参数 $\alpha > 0, \beta > 0$ , 取值范围为 $[0,1]$ 的随机变量 $x$ 的概率密度函数为:
+
+$$
+f(x; \alpha, \beta) = \frac{1}{B(\alpha, \beta)} x^{\alpha-1} (1-x)^{\beta-1}
+$$
+
+B的表达式可以由刚才定义的Gamma函数来表达：
+
+$$
+\frac{1}{B(\alpha, \beta)} = \frac{\Gamma (\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)}
+$$
+
+
+- Dirichlet分布
+
+Beta分布的多维形式我们一般称他为狄克雷（Dirichlet）分布，所以Dirichlet分布是Beta分布的一种拓展：
+
+$$
+f(x_1, x_2, ..., x_k; \alpha_1, \alpha_2 ..., \alpha_k) = \frac{1}{B(\alpha)} \prod \limits_{k} \limits^{i = 1} x_i^{\alpha^i-1}
+$$
+
+B的表达式仍可以由刚才定义的Gamma函数来表达：
+
+$$
+B(\alpha) = \frac{\prod _{k} ^{i = 1} \Gamma(\alpha_i)}{\Gamma()\sum^k_{i=1}\alpha_i}, \sum \limits_{i=1} \limits^k x^i = 1
+$$
+
+至此，所有的reference为
+> ref: [如何理解LDA](https://blog.csdn.net/qq_38556984/article/details/107571714)
+
+> ref: [LDA数学八卦](https://www.cnblogs.com/gasongjian/p/7631978.html)
+
+> ref: [浅谈狄利克雷分布——Dirichlet Distribution](https://blog.csdn.net/philthinker/article/details/111999552)
+
+> ref: [文本主题模型之LDA(一) LDA基础](https://www.cnblogs.com/pinard/p/6831308.html)
+
+> ref: [干货 | 一文详解隐含狄利克雷分布（LDA）](http://www.sohu.com/a/239937665_633698)
+
+> Courses: [徐亦达机器学习课程Dirichlet Process](https://youtu.be/qT6CQ9BFDL8)
+
+
+- 吉布斯采样
+
+概率图模型中最常用的采样技术是马尔可夫链脸蒙特卡罗(Markov chain Monte Carlo, MCMC)
+
+> Courses: [徐亦达机器学习课程 Markov Chain Monte Carlo](https://youtu.be/s8w8AsFK77c)
+
+
+
+
+### dirichlet distribution
+
+dirichlet distribution <-- beta distribution <-- Bernoulli process <-- Bernoulli trial
+
+> ref: https://www.zhihu.com/question/26751755
+
+> ref: https://blog.csdn.net/philthinker/article/details/111999552
+
+Dirichlet分布是Beta分布的多元推广。Beta分布是二项式分布的共轭分布，Dirichlet分布是多项式分布的共轭分布。通常情况下，我们说的分布都是关于某个参数的函数，把对应的参数换成一个函数（函数也可以理解成某分布的概率密度）就变成了关于函数的函数。
+
+> ref: https://www.zhihu.com/question/26751755/answer/147053143
+
+
+
